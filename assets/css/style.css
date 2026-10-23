@@ -1,0 +1,163 @@
+/* WattWise - Electricity Bill Calculator */
+:root {
+  --bg: #0d1320;
+  --bg-2: #111a2b;
+  --card: #162034;
+  --card-2: #1b2740;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --text: #e8edf6;
+  --muted: #94a0b8;
+  --amber: #f5a524;
+  --amber-dark: #d98c0e;
+  --teal: #2dd4bf;
+  --danger: #f87171;
+  --radius: 16px;
+  --mono: "JetBrains Mono", "Cascadia Mono", Consolas, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse 70% 50% at 10% -10%, rgba(245, 165, 36, 0.10), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(45, 212, 191, 0.07), transparent 60%),
+    var(--bg);
+  line-height: 1.55;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p { margin: 0; }
+a { color: var(--amber); }
+.container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+.small { font-size: 12.5px; }
+.eyebrow { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+.label { font-size: 11.5px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); }
+
+/* Header */
+.site-header { border-bottom: 1px solid var(--line); background: rgba(13, 19, 32, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 20; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; color: var(--text); text-decoration: none; }
+.brand-mark { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(145deg, #f8b84a, var(--amber-dark)); box-shadow: 0 4px 14px rgba(245, 165, 36, 0.35); }
+.brand-mark svg { width: 20px; height: 20px; fill: #111827; }
+.nav { display: flex; gap: 24px; }
+.nav a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 13.5px; }
+.nav a:hover { color: var(--text); }
+
+/* Hero */
+.hero { padding: 56px 0 30px; }
+.hero h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.1; letter-spacing: -1.2px; max-width: 760px; }
+.accent { color: var(--amber); }
+.lead { margin-top: 16px; font-size: 17px; color: var(--muted); max-width: 640px; }
+
+/* Cards */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); }
+.card-title { display: flex; align-items: center; gap: 10px; font-size: 18px; margin-bottom: 18px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 10px rgba(245, 165, 36, 0.7); }
+.calc-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 22px; align-items: start; padding-bottom: 20px; }
+
+/* Form */
+.alert { padding: 11px 14px; border-radius: 10px; margin-bottom: 16px; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.4); color: #fecaca; font-size: 14px; }
+.field { display: block; margin-bottom: 16px; }
+.field > span { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.field input {
+  width: 100%; height: 48px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line-2);
+  background: var(--bg-2); color: var(--text); font: inherit; font-size: 15.5px; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s; color-scheme: dark;
+}
+.field input::placeholder { color: #5f6b82; }
+.field input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(245, 165, 36, 0.18); }
+.field.invalid input { border-color: var(--danger); }
+.field-error { display: block; margin-top: 6px; color: var(--danger); font-size: 13px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.units-input { height: 60px !important; font-family: var(--mono) !important; font-size: 26px !important; }
+.live { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 10px; background: rgba(45, 212, 191, 0.08); border: 1px dashed rgba(45, 212, 191, 0.45); margin-bottom: 16px; font-family: var(--mono); font-size: 13px; color: var(--teal); }
+.live[hidden] { display: none; }
+.live strong { font-size: 17px; color: var(--text); }
+.form-actions { display: flex; gap: 10px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 50px; padding: 0 22px; border-radius: 10px; border: 1px solid transparent; font: inherit; font-weight: 700; font-size: 15.5px; cursor: pointer; text-decoration: none; transition: transform 0.1s, filter 0.15s, border-color 0.15s; }
+.btn:active { transform: scale(0.98); }
+.btn-primary { flex: 1; background: var(--amber); color: #111827; }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line-2); }
+.btn-ghost:hover { border-color: var(--amber); }
+.btn-sm { height: 36px; padding: 0 14px; font-size: 13.5px; }
+.btn:focus-visible, .field input:focus-visible, .nav a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+/* Result */
+.bill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.bill-head .card-title { margin-bottom: 4px; }
+.total-box { text-align: center; padding: 22px 12px; margin: 18px 0; border-radius: 12px; background: linear-gradient(180deg, rgba(245, 165, 36, 0.09), rgba(245, 165, 36, 0.02)); border: 1px solid rgba(245, 165, 36, 0.28); }
+.total-amount { font-family: var(--mono); font-size: clamp(32px, 5vw, 46px); font-weight: 700; color: var(--amber); margin: 6px 0 4px; font-variant-numeric: tabular-nums; }
+.customer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 0 0 18px; }
+.customer div { background: var(--card-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.customer dt { font-family: var(--mono); font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+.customer dd { margin: 3px 0 0; font-weight: 600; overflow-wrap: anywhere; font-size: 14px; }
+.table-wrap { overflow-x: auto; }
+.slab-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.slab-table th { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 8px 10px; border-bottom: 1px solid var(--line-2); }
+.slab-table td { padding: 12px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.slab-table .num { text-align: right; white-space: nowrap; }
+.slab-table tr.unused td { opacity: 0.4; }
+.slab-table tfoot td { border-bottom: 0; font-weight: 700; padding-top: 14px; color: var(--amber); }
+.slab-name { display: block; font-family: var(--mono); font-size: 13.5px; }
+.bar { display: block; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.06); margin-top: 7px; overflow: hidden; }
+.bar span { display: block; height: 100%; border-radius: 3px; }
+.example { margin-top: 20px; padding: 18px; border-radius: 12px; background: var(--card-2); border: 1px solid var(--line); }
+.example-list { list-style: none; margin: 10px 0 0; padding: 0; font-size: 14px; }
+.example-list li { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.example-list li.sum { border-bottom: 0; color: var(--amber); font-weight: 700; padding-top: 10px; }
+
+/* Sections */
+.section { padding-top: 48px; padding-bottom: 10px; }
+.section-head { margin-bottom: 20px; }
+.section-head h2 { font-size: 28px; letter-spacing: -0.6px; margin-bottom: 6px; }
+.slab-cards { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--card); }
+.slab-card { padding: 20px; border-right: 1px solid var(--line); border-bottom: 3px solid var(--slab); display: flex; flex-direction: column; gap: 6px; }
+.slab-card:last-child { border-right: 0; }
+.slab-card strong { font-size: 26px; color: var(--text); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+.step-no { color: var(--amber); font-size: 14px; }
+.step h3 { font-size: 18px; margin: 10px 0 6px; }
+.step p { color: var(--muted); font-size: 14.5px; }
+
+/* Footer */
+.site-footer { margin-top: 56px; border-top: 1px solid var(--line); }
+.footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 22px 20px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .slab-cards { grid-template-columns: repeat(2, 1fr); }
+  .slab-card:nth-child(2) { border-right: 0; }
+  .steps { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .nav { gap: 14px; }
+  .nav a:last-child { display: none; }
+  .hero { padding-top: 36px; }
+  .card { padding: 20px 16px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .customer { grid-template-columns: 1fr 1fr; }
+  .slab-table { font-size: 13px; }
+  .slab-table th, .slab-table td { padding-left: 4px; padding-right: 4px; }
+  .slab-name small { display: block; }
+}
+
+/* Print: only the bill */
+@media print {
+  html, body { background: #fff !important; color: #111; font-size: 12pt; }
+  .site-header, .hero, .form-card, #tariff, #how, .site-footer, .bill-head .btn { display: none !important; }
+  .calc-grid { display: block; }
+  .card { box-shadow: none; border: 1px solid #ccc; background: #fff; }
+  .customer div, .total-box { background: #fff; border-color: #ccc; }
+  .total-amount, .slab-table tfoot td { color: #111; }
+  .muted, .label, .customer dt, .slab-table th { color: #555; }
+  .slab-table td, .slab-table th { border-color: #ddd; }
+}
